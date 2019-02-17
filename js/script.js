@@ -29,35 +29,41 @@ var Counter1 = makeCounter();
  * Work with DOM
  */
 
-
-/**
- * Variables
- */
-let makeCounterBtn = document.getElementById('make-counter-btn');
-let countersElem = document.getElementById('counters');
-
 /**
  * Actions
  */
-makeCounterBtn.addEventListener('click', function() {
-    addElement();
-});
+// makeCounterBtn.addEventListener('click', function() {
+//     createCounter.init();
+// });
 
 /**
  * Functions
  */
 
-function addElement() {
-    let counterElem = document.querySelectorAll('.counter');
-    let counterClass = `counter-${counterElem.length}`;
+let createCounter = {
+    init: function () {
+        this.counterElem    = document.querySelectorAll('.counter');;
+        this.counterClass   = `counter-${this.counterElem.length}`;
+        this.makeCounterBtn = document.getElementById('make-counter-btn');
+        this.countersElem   = document.getElementById('counters');
+    
+        this.events();
+    },
 
-    let elem = document.createElement('div');
-    elem.className= `counter ${counterClass}`;
-    elem.innerHTML = '<button>-</button><input type="number"><button>+</button>';
-    countersElem.appendChild(elem);
-};
+    events: function () {
+        this.makeCounterBtn.addEventListener('click', this.addElement.bind(this) );
+    },
 
-/**
- * TODO: Split on different functions. Create function with object.
- */
+    addElement: function () {
+        let elem = document.createElement('div');
+        elem.className= `counter ${this.counterClass}`;
+        elem.innerHTML = `
+            <button class="btn btn-round">-</button>
+            <input type="number">
+            <button class="btn btn-round">+</button>
+            `;
+        this.countersElem.appendChild(elem);
+    }
+}
 
+createCounter.init();
