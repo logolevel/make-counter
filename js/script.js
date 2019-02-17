@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * General function
+ * increment and decrement
  */
 
 var makeCounter = function() {
@@ -25,25 +25,13 @@ var makeCounter = function() {
 
 var Counter1 = makeCounter();
 
-/**
- * Work with DOM
- */
 
 /**
- * Actions
- */
-// makeCounterBtn.addEventListener('click', function() {
-//     createCounter.init();
-// });
-
-/**
- * Functions
+ * createCounter
  */
 
 let createCounter = {
     init: function () {
-        this.counterElem    = document.querySelectorAll('.counter');;
-        this.counterClass   = `counter-${this.counterElem.length}`;
         this.makeCounterBtn = document.getElementById('make-counter-btn');
         this.countersElem   = document.getElementById('counters');
     
@@ -55,15 +43,34 @@ let createCounter = {
     },
 
     addElement: function () {
+        this.classCounter();
+
         let elem = document.createElement('div');
-        elem.className= `counter ${this.counterClass}`;
+        elem.className = `counter counter-${this.classCounter()}`;
         elem.innerHTML = `
-            <button class="btn btn-round">-</button>
-            <input type="number">
+            <button class="btn btn-round">+</button>
+            <input type="number" value="0">
+            <span>:</span>
+            <input type="number" value="0">
             <button class="btn btn-round">+</button>
             `;
         this.countersElem.appendChild(elem);
+
+        let finishButton = document.createElement('div');
+        finishButton.className = 'finish-button';
+        finishButton.innerHTML = '<button>Finish</button>';
+        this.countersElem.appendChild(finishButton);
+    },
+
+    classCounter: function() {
+        this.counterElements = document.querySelectorAll('.counter');
+        return this.classCount    = this.counterElements.length;
     }
 }
 
 createCounter.init();
+
+
+/**
+ * TODO: Add finish button. Wrap each result in accordion.
+ */
